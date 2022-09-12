@@ -1,5 +1,4 @@
-# template-jupyter-project
-Template to use for new python-based Jupyter notebook projects
+# rff-fair2.1
 
 ## First steps
 
