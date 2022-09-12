@@ -1,25 +1,17 @@
-# name: template-jupyter-project
+name: rff-fair2.1
 channels:
-  - chrisroadmap
   - conda-forge
   - defaults
 dependencies:
-  - climateforcing
   - jupyter
   - nbstripout
-# you might also want:
-#   - fair
-#   - h5py
-#   - iris
-#   - matplotlib
-#   - numpy
-#   - openpyxl
-#   - pandas
-#   - scipy
-#   - seaborn
-#   - statsmodels
-#   - tqdm
-# if you need to pip install anything:
-#   - pip
-#   - pip:
-#     - thing-to-pip-install
+  - matplotlib
+  - numpy
+  - openpyxl
+  - pandas
+  - scipy
+  - tqdm
+  - pip
+  - pip:
+    # install a local copy of FaIR2.1 (ensure that repo is up to date)
+    - -e ../fair2.1-calibrate
