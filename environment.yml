@@ -9,6 +9,7 @@ dependencies:
   - numpy
   - openpyxl
   - pandas
+  - pooch
   - scipy
   - tqdm
   - pip
