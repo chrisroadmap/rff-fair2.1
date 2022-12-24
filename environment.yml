@@ -14,5 +14,5 @@ dependencies:
   - tqdm
   - pip
   - pip:
-    # install a local copy of FaIR2.1 (ensure that repo is up to date)
-    - -e ../fair2.1-calibrate
+    - fair==2.1.0
+    - silicone
