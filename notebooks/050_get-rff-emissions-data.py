@@ -34,14 +34,16 @@ DATADIR = Path(os.getenv("DATADIR"))
 DATAOUT = DATADIR.joinpath('data_input')
 os.makedirs(DATAOUT, exist_ok=True)
 
+print("Downloading zipfile...")
 RFF_ZIPFILE_TARGET = DATAOUT.joinpath("RFFSPs-Final.zip")
-zf = download_url(
-    url = "https://zenodo.org/record/5898729/files/RFFSPs-Final.zip",
-    output_path = RFF_ZIPFILE_TARGET
+download_url(
+   url = "https://zenodo.org/record/5898729/files/RFFSPs-Final.zip",
+   output_path = RFF_ZIPFILE_TARGET
 )
 
 # Extract zipfile: only keep emissions files
-with zipfile.ZipFile(zf, mode='r') as z:
+print("Extracting zipfile...")
+with zipfile.ZipFile(RFF_ZIPFILE_TARGET, mode='r') as z:
     [z.extract(file, path=DATAOUT) for file in z.namelist() if 'emissions/' in file]
 
 # Process the RFF files into a format easier for FaIR to deal with
@@ -49,20 +51,19 @@ with zipfile.ZipFile(zf, mode='r') as z:
 # We also want to attach the RCMIP/CMIP6 historical emissions on to this, so while we're at it, we'll download the SSP emissions from RCMIP.
 
 # I believe that RFF used SSP2-4.5 between 2015 and 2020. **TODO** ask Marcus or re-read the Rennert paper
-
 df_co2 = pd.read_csv(DATAOUT.joinpath('emissions/rffsp_co2_emissions.csv'))
 df_ch4 = pd.read_csv(DATAOUT.joinpath('emissions/rffsp_ch4_emissions.csv'))
 df_n2o = pd.read_csv(DATAOUT.joinpath('emissions/rffsp_n2o_emissions.csv'))
 
+print("Downloading SSP emissions...")
 SSP_EMISSIONS_TARGET = DATAOUT.joinpath("rcmip-emissions-annual-means-v5-1-0.csv")
 ssp_emissions = download_url(
     url = "https://zenodo.org/record/4589756/files/rcmip-emissions-annual-means-v5-1-0.csv",
     output_path = SSP_EMISSIONS_TARGET
 )
 
+print("Making histories...")
 df_ssp = pd.read_csv(SSP_EMISSIONS_TARGET)
-
-
 co2_hist = df_ssp.loc[(df_ssp['Region']=='World')&(df_ssp['Scenario']=='ssp245')&(df_ssp['Variable']=='Emissions|CO2'),'1750':'2020'].interpolate(axis=1).values.squeeze()
 ch4_hist = df_ssp.loc[(df_ssp['Region']=='World')&(df_ssp['Scenario']=='ssp245')&(df_ssp['Variable']=='Emissions|CH4'),'1750':'2020'].interpolate(axis=1).values.squeeze()
 n2o_hist = df_ssp.loc[(df_ssp['Region']=='World')&(df_ssp['Scenario']=='ssp245')&(df_ssp['Variable']=='Emissions|N2O'),'1750':'2020'].interpolate(axis=1).values.squeeze()
@@ -92,6 +93,7 @@ for sample in tqdm(range(1, 10001), desc="Processing emissions files"):
     df_out = pd.DataFrame(emissions, columns=['CO2', 'CH4', 'N2O'], index=range(1750,2301))
     df_out.to_csv(DATAPROCESSED.joinpath('emissions%05d.csv' % sample))
 
+print("Cleaning up...")
 # Remove intermediate RFF datafiles and reclaim 240 MB
 if os.path.exists(DATAOUT.joinpath('emissions/rffsp_co2_emissions.csv')):
     os.remove(DATAOUT.joinpath('emissions/rffsp_co2_emissions.csv'))
