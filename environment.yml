@@ -9,8 +9,8 @@ dependencies:
   - numpy
   - openpyxl
   - pandas
-  - pooch
   - pyam>=1.7
+  - python-dotenv
   - scipy
   - tqdm
   - pip
