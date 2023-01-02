@@ -1,4 +1,5 @@
 from concurrent.futures import ProcessPoolExecutor
+import pathlib
 import multiprocessing
 import warnings
 
@@ -13,6 +14,16 @@ from silicone.utils import return_cases_which_consistently_split
 from tqdm.auto import tqdm
 
 from utils import _parallel_process
+
+### UNFINISHED
+
+
+# Get environment variables
+load_dotenv()
+
+DATADIR = Path(os.getenv("DATADIR"))
+DATAIN = DATADIR.joinpath('data_input')
+DATARFF = DATADIR.joinpath('data_processed/emissions_files')
 
 # number of processors
 WORKERS = multiprocessing.cpu_count()
@@ -46,7 +57,7 @@ if __name__ == '__main__':
     # zzzz
     dfs = []
     for sample in tqdm(range(1, RFF_SCENS+1)):
-        df_in = pd.read_csv('../data_processed/emissions_files/emissions%05d.csv' % sample, index_col=0)
+        df_in = pd.read_csv(DATARFF.joinpath('emissions%05d.csv' % sample), index_col=0)
         ch4 = df_in['CH4']
         n2o = df_in['N2O']
         ch4_data = pd.DataFrame(ch4, index=np.arange(2020, 2101))
@@ -76,9 +87,9 @@ if __name__ == '__main__':
         warnings.simplefilter("ignore")
         pyam_ch4n2o_data = pyam.concat(dfs)
 
-    # # this is so slow, I saved the data in a binary format
-    # df = pd.read_excel('../data_input/20220314_ar6emissions_harmonized_infilled.xlsx')
-    # df.to_pickle('../data_input/20220314_ar6emissions_harmonized_infilled.pkl')
+#    # # this is so slow, I saved the data in a binary format
+#    df = pd.read_excel('../data_input/20220314_ar6emissions_harmonized_infilled.xlsx')
+#    df.to_pickle('../data_input/20220314_ar6emissions_harmonized_infilled.pkl')
 
     # this file isn't public, but we want it to be : place on Zenodo, point all to Kikstra et al citation
     # also, why is reading this in so painful?
