@@ -43,7 +43,7 @@ if __name__ == "__main__":
         )
 
     print("Concatenating results...")
-    res = res[0]  # comes out as nested list
+    #res = res[0]  # comes out as nested list
     res = pyam.concat(res)
 
     print("Adding on CO2, CH4, N2O...")

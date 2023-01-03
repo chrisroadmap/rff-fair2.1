@@ -4,6 +4,7 @@ def run_stuff(sample):
     import warnings
     from pathlib import Path
 
+    from pyam import concat
     from dotenv import load_dotenv
     from silicone.database_crunchers import QuantileRollingWindows, RMSClosest
 
@@ -125,4 +126,5 @@ def run_stuff(sample):
         qrw_infilled = filler(filler_data)
         inner_list.append(qrw_infilled.filter(variable=follow))
 
-    return inner_list
+    pyam_output = concat(inner_list)
+    return pyam_output
