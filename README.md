@@ -1,5 +1,7 @@
 # rff-fair2.1
 
+Get the AR6 infiller database and save in your $DATADIR/data_input/ar6_emissions_vetted_infillerdatabase.csv.
+
 ## First steps
 
 This assumes that you are developing with `conda` and `python` 3.7, 3.8 or 3.9. These instructions should work for Windows when using Anaconda Prompt and for MacOS in Terminal (and by extension, likely will work on Linux).
@@ -20,7 +22,7 @@ nbstripout --install
 
 4. Examine .gitignore and decide where you want to put any large input or output datasets that you don't want to commit to GitHub, and fill in these paths.
 
-## Operation 
+## Operation
 
 ### Developing your package
 

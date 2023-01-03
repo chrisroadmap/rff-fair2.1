@@ -1,6 +1,7 @@
-from concurrent.futures import as_completed
 import logging
 import time
+from concurrent.futures import as_completed
+
 from tqdm.auto import tqdm
 
 LOGGER = logging.getLogger(__name__)
@@ -11,6 +12,7 @@ _default_tqdm_params = {
     "unit": "it",
     "unit_scale": True,
 }
+
 
 def progress(*args, **kwargs):
     kwargs = {**_default_tqdm_params, **kwargs}

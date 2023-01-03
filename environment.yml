@@ -3,6 +3,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - black
+  - flake8
+  - isort
   - jupyter
   - nbstripout
   - matplotlib
