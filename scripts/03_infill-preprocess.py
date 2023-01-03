@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 from silicone import multiple_infillers
 from tqdm.auto import tqdm
 
+# kill pyam/silicone/pandas
+warnings.simplefilter("ignore")
+
 # Get environment variables
 load_dotenv()
 
@@ -166,7 +169,7 @@ with warnings.catch_warnings():
     pyam_ch4n2o_data = pyam.concat(dfs)
 
 
-print("Saving out files as pickles because pyam is SO SLOW...")
+print("Saving out files as pickles because ;)...")
 
 # Save out infiller database
 with open(DATAOUT.joinpath("infiller_database_ar6.pkl"), "wb") as handle:
