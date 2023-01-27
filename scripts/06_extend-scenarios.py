@@ -69,7 +69,8 @@ variables = [
     'AR6 climate diagnostics|Emissions|NF3',
     'AR6 climate diagnostics|Emissions|NH3', # 36
     'AR6 climate diagnostics|Emissions|NOx', # 37
-    'AR6 climate diagnostics|Emissions|OC', # 38
+    'AR6 climate diagnostics|Emissions|NOx|Aviation',
+    'AR6 climate diagnostics|Emissions|OC', # 39
     'AR6 climate diagnostics|Emissions|PFC|C2F6',
     'AR6 climate diagnostics|Emissions|PFC|C3F8',
     'AR6 climate diagnostics|Emissions|PFC|C4F10',
@@ -81,8 +82,8 @@ variables = [
     'AR6 climate diagnostics|Emissions|PFC|cC4F8',
     'AR6 climate diagnostics|Emissions|SF6',
     'AR6 climate diagnostics|Emissions|SO2F2',
-    'AR6 climate diagnostics|Emissions|Sulfur', # 50
-    'AR6 climate diagnostics|Emissions|VOC' # 51
+    'AR6 climate diagnostics|Emissions|Sulfur', # 51
+    'AR6 climate diagnostics|Emissions|VOC' # 52
 ]
 
 units = [
@@ -124,6 +125,7 @@ units = [
     "kt NF3/yr",
     "Mt NH3/yr",
     "Mt NO2/yr",
+    "Mt NO2/yr",
     "Mt OC/yr",
     "kt C2F6/yr",
     "kt C3F8/yr",
@@ -142,7 +144,7 @@ units = [
 
 for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     df_this = df.filter(scenario=scenario)
-    emissions_2100_2300_out = np.zeros((201, 52))
+    emissions_2100_2300_out = np.zeros((201, 53))
     emissions_2100_2300_out[0, :] = df_this.filter(year=2100).data.value.values
 
     # we have to treat CO2, CH4 and N2O separately, as RFF give us these.
@@ -150,14 +152,14 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     # AFOLU emissions (positive for all except possibly CO2 AFOLU) remains constant at
     # 2100 levels. These fractions for SLCFs are pre-calculated as the
     # means from SSP scenarios (the big eight) in 2100.
-    afolu_fraction = np.zeros((201, 52))
+    afolu_fraction = np.zeros((201, 53))
     afolu_fraction[:, 0] = 0.44547
     afolu_fraction[:, 13] = 0.55011
     afolu_fraction[:, 36] = 0.81015
     afolu_fraction[:, 37] = 0.33848
-    afolu_fraction[:, 38] = 0.67538
-    afolu_fraction[:, 50] = 0.09730
-    afolu_fraction[:, 51] = 0.40963
+    afolu_fraction[:, 39] = 0.67538
+    afolu_fraction[:, 51] = 0.09730
+    afolu_fraction[:, 52] = 0.40963
 
     # CO2 AFOLU ramps to zero from 2100 to 2150. This is true for both positive and
     # negative emissions.
@@ -165,9 +167,9 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
 
     # net positive fossil emissions goes to zero in 2250. Fossil fraction is 1 for
     # minor GHGs, zero for CO2 AFOLU, and 1-(AFOLU fraction) for and SLCFs.
-    fossil_fraction = np.zeros((201, 52))
+    fossil_fraction = np.zeros((201, 53))
     fossil_fraction[0, :] = 1 - afolu_fraction[0, :]
-    for ispec in range(52):
+    for ispec in range(53):
         fossil_fraction[:151, ispec] = np.linspace(1, 0, 151) * fossil_fraction[0, ispec]
     fossil_fraction[:, 14] = 0
 
@@ -187,9 +189,9 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     emissions_2015_2300_out = np.concatenate((df_this.timeseries().values, emissions_2100_2300_out[1:, :].T), axis=1)
 
     index_arrays = [
-        ["RFF-SP"] * 52,
-        [str(scenario)] * 52,
-        ["World"] * 52,
+        ["RFF-SP"] * 53,
+        [str(scenario)] * 53,
+        ["World"] * 53,
         variables,
         units
     ]

@@ -80,6 +80,7 @@ def run_stuff(sample):
         "AR6 climate diagnostics|Emissions|PFC|C8F18",
         "AR6 climate diagnostics|Emissions|PFC|cC4F8",
         "AR6 climate diagnostics|Emissions|SO2F2",
+        "AR6 climate diagnostics|Emissions|NOx|Aviation",
     ]
 
     # Get data pickles
