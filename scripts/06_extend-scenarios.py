@@ -32,18 +32,18 @@ df = pyam.IamDataFrame(DATAIN.joinpath("infilled_emissions_scenarios.csv"))
 
 variables = [
     "AR6 climate diagnostics|Emissions|BC",  # 0
-    "AR6 climate diagnostics|Emissions|CCl4",
+    "AR6 climate diagnostics|Emissions|CCl4",  # 1
     "AR6 climate diagnostics|Emissions|CFC11",
     "AR6 climate diagnostics|Emissions|CFC113",
     "AR6 climate diagnostics|Emissions|CFC114",
     "AR6 climate diagnostics|Emissions|CFC115",
     "AR6 climate diagnostics|Emissions|CFC12",
-    "AR6 climate diagnostics|Emissions|CH2Cl2",
-    "AR6 climate diagnostics|Emissions|CH3Br",
+    "AR6 climate diagnostics|Emissions|CH2Cl2", # 7
+    "AR6 climate diagnostics|Emissions|CH3Br", # 8
     "AR6 climate diagnostics|Emissions|CH3CCl3",
-    "AR6 climate diagnostics|Emissions|CH3Cl",
+    "AR6 climate diagnostics|Emissions|CH3Cl", # 10
     "AR6 climate diagnostics|Emissions|CH4",  # 11
-    "AR6 climate diagnostics|Emissions|CHCl3",
+    "AR6 climate diagnostics|Emissions|CHCl3", # 12
     "AR6 climate diagnostics|Emissions|CO",  # 13
     "AR6 climate diagnostics|Emissions|CO2|AFOLU",  # 14
     "AR6 climate diagnostics|Emissions|CO2|Energy and Industrial Processes",  # 15
@@ -62,7 +62,7 @@ variables = [
     "AR6 climate diagnostics|Emissions|HFC|HFC365mfc",
     "AR6 climate diagnostics|Emissions|HFC|HFC43-10",
     "AR6 climate diagnostics|Emissions|Halon1202",
-    "AR6 climate diagnostics|Emissions|Halon1211",
+    "AR6 climate diagnostics|Emissions|Halon1211", # 32
     "AR6 climate diagnostics|Emissions|Halon1301",
     "AR6 climate diagnostics|Emissions|Halon2402",
     "AR6 climate diagnostics|Emissions|N2O",  # 34
@@ -78,7 +78,7 @@ variables = [
     "AR6 climate diagnostics|Emissions|PFC|C6F14",
     "AR6 climate diagnostics|Emissions|PFC|C7F16",
     "AR6 climate diagnostics|Emissions|PFC|C8F18",
-    "AR6 climate diagnostics|Emissions|PFC|CF4",
+    "AR6 climate diagnostics|Emissions|PFC|CF4", # 47
     "AR6 climate diagnostics|Emissions|PFC|cC4F8",
     "AR6 climate diagnostics|Emissions|SF6",
     "AR6 climate diagnostics|Emissions|SO2F2",
@@ -165,13 +165,26 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     # negative emissions.
     afolu_fraction[:51, 14] = np.linspace(1, 0, 51)
 
+    # Improvement over RCMIP: some natural emissions are not zero in 1750 for some
+    # gases. They should not be zero in the future
+    natural_emissions_1750 = np.zeros(53)
+    natural_emissions_1750[47] = 0.010071225  # CF4
+    natural_emissions_1750[1] = 0.024856862 # CCl4
+    natural_emissions_1750[7] = 246.6579 # CH2Cl2
+    natural_emissions_1750[8] = 105.08773 # CH3Br
+    natural_emissions_1750[10] = 4275.7449 # CH3Cl
+    natural_emissions_1750[12] = 300.92479 # CHCl3
+    natural_emissions_1750[32] = 0.007723273 # Halon1211
+
     # net positive fossil emissions goes to zero in 2250. Fossil fraction is 1 for
-    # minor GHGs, zero for CO2 AFOLU, and 1-(AFOLU fraction) for and SLCFs.
+    # minor GHGs, zero for CO2 AFOLU, and 1-(AFOLU fraction) for and SLCFs. Minor GHGs
+    # with natural emissions go back to preindustrial in 2250.
     fossil_fraction = np.zeros((201, 53))
     fossil_fraction[0, :] = 1 - afolu_fraction[0, :]
     for ispec in range(53):
+        emissions_1750_2100 = natural_emissions_1750[ispec]/emissions_2100_2300_out[0, ispec]
         fossil_fraction[:151, ispec] = (
-            np.linspace(1, 0, 151) * fossil_fraction[0, ispec]
+            np.linspace(1, emissions_1750_2100, 151) * fossil_fraction[0, ispec]
         )
     fossil_fraction[:, 14] = 0
 
