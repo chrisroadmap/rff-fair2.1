@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pyam
 from dotenv import load_dotenv
-from parallel import run_stuff
+from parallel_infill import run_stuff
 from utils import _parallel_process
 
 # Get environment variables
