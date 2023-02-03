@@ -31,59 +31,59 @@ RFF_SCENS = int(os.getenv("RFF_SCENS"))
 df = pyam.IamDataFrame(DATAIN.joinpath("infilled_emissions_scenarios.csv"))
 
 variables = [
-    'AR6 climate diagnostics|Emissions|BC',  # 0
-    'AR6 climate diagnostics|Emissions|CCl4',
-    'AR6 climate diagnostics|Emissions|CFC11',
-    'AR6 climate diagnostics|Emissions|CFC113',
-    'AR6 climate diagnostics|Emissions|CFC114',
-    'AR6 climate diagnostics|Emissions|CFC115',
-    'AR6 climate diagnostics|Emissions|CFC12',
-    'AR6 climate diagnostics|Emissions|CH2Cl2',
-    'AR6 climate diagnostics|Emissions|CH3Br',
-    'AR6 climate diagnostics|Emissions|CH3CCl3',
-    'AR6 climate diagnostics|Emissions|CH3Cl',
-    'AR6 climate diagnostics|Emissions|CH4',  # 11
-    'AR6 climate diagnostics|Emissions|CHCl3',
-    'AR6 climate diagnostics|Emissions|CO',  # 13
-    'AR6 climate diagnostics|Emissions|CO2|AFOLU',  # 14
-    'AR6 climate diagnostics|Emissions|CO2|Energy and Industrial Processes',  # 15
-    'AR6 climate diagnostics|Emissions|HCFC141b',
-    'AR6 climate diagnostics|Emissions|HCFC142b',
-    'AR6 climate diagnostics|Emissions|HCFC22',
-    'AR6 climate diagnostics|Emissions|HFC|HFC125',
-    'AR6 climate diagnostics|Emissions|HFC|HFC134a',
-    'AR6 climate diagnostics|Emissions|HFC|HFC143a',
-    'AR6 climate diagnostics|Emissions|HFC|HFC152a',
-    'AR6 climate diagnostics|Emissions|HFC|HFC227ea',
-    'AR6 climate diagnostics|Emissions|HFC|HFC23',
-    'AR6 climate diagnostics|Emissions|HFC|HFC236fa',
-    'AR6 climate diagnostics|Emissions|HFC|HFC245fa',
-    'AR6 climate diagnostics|Emissions|HFC|HFC32',
-    'AR6 climate diagnostics|Emissions|HFC|HFC365mfc',
-    'AR6 climate diagnostics|Emissions|HFC|HFC43-10',
-    'AR6 climate diagnostics|Emissions|Halon1202',
-    'AR6 climate diagnostics|Emissions|Halon1211',
-    'AR6 climate diagnostics|Emissions|Halon1301',
-    'AR6 climate diagnostics|Emissions|Halon2402',
-    'AR6 climate diagnostics|Emissions|N2O', # 34
-    'AR6 climate diagnostics|Emissions|NF3',
-    'AR6 climate diagnostics|Emissions|NH3', # 36
-    'AR6 climate diagnostics|Emissions|NOx', # 37
-    'AR6 climate diagnostics|Emissions|NOx|Aviation',
-    'AR6 climate diagnostics|Emissions|OC', # 39
-    'AR6 climate diagnostics|Emissions|PFC|C2F6',
-    'AR6 climate diagnostics|Emissions|PFC|C3F8',
-    'AR6 climate diagnostics|Emissions|PFC|C4F10',
-    'AR6 climate diagnostics|Emissions|PFC|C5F12',
-    'AR6 climate diagnostics|Emissions|PFC|C6F14',
-    'AR6 climate diagnostics|Emissions|PFC|C7F16',
-    'AR6 climate diagnostics|Emissions|PFC|C8F18',
-    'AR6 climate diagnostics|Emissions|PFC|CF4',
-    'AR6 climate diagnostics|Emissions|PFC|cC4F8',
-    'AR6 climate diagnostics|Emissions|SF6',
-    'AR6 climate diagnostics|Emissions|SO2F2',
-    'AR6 climate diagnostics|Emissions|Sulfur', # 51
-    'AR6 climate diagnostics|Emissions|VOC' # 52
+    "AR6 climate diagnostics|Emissions|BC",  # 0
+    "AR6 climate diagnostics|Emissions|CCl4",
+    "AR6 climate diagnostics|Emissions|CFC11",
+    "AR6 climate diagnostics|Emissions|CFC113",
+    "AR6 climate diagnostics|Emissions|CFC114",
+    "AR6 climate diagnostics|Emissions|CFC115",
+    "AR6 climate diagnostics|Emissions|CFC12",
+    "AR6 climate diagnostics|Emissions|CH2Cl2",
+    "AR6 climate diagnostics|Emissions|CH3Br",
+    "AR6 climate diagnostics|Emissions|CH3CCl3",
+    "AR6 climate diagnostics|Emissions|CH3Cl",
+    "AR6 climate diagnostics|Emissions|CH4",  # 11
+    "AR6 climate diagnostics|Emissions|CHCl3",
+    "AR6 climate diagnostics|Emissions|CO",  # 13
+    "AR6 climate diagnostics|Emissions|CO2|AFOLU",  # 14
+    "AR6 climate diagnostics|Emissions|CO2|Energy and Industrial Processes",  # 15
+    "AR6 climate diagnostics|Emissions|HCFC141b",
+    "AR6 climate diagnostics|Emissions|HCFC142b",
+    "AR6 climate diagnostics|Emissions|HCFC22",
+    "AR6 climate diagnostics|Emissions|HFC|HFC125",
+    "AR6 climate diagnostics|Emissions|HFC|HFC134a",
+    "AR6 climate diagnostics|Emissions|HFC|HFC143a",
+    "AR6 climate diagnostics|Emissions|HFC|HFC152a",
+    "AR6 climate diagnostics|Emissions|HFC|HFC227ea",
+    "AR6 climate diagnostics|Emissions|HFC|HFC23",
+    "AR6 climate diagnostics|Emissions|HFC|HFC236fa",
+    "AR6 climate diagnostics|Emissions|HFC|HFC245fa",
+    "AR6 climate diagnostics|Emissions|HFC|HFC32",
+    "AR6 climate diagnostics|Emissions|HFC|HFC365mfc",
+    "AR6 climate diagnostics|Emissions|HFC|HFC43-10",
+    "AR6 climate diagnostics|Emissions|Halon1202",
+    "AR6 climate diagnostics|Emissions|Halon1211",
+    "AR6 climate diagnostics|Emissions|Halon1301",
+    "AR6 climate diagnostics|Emissions|Halon2402",
+    "AR6 climate diagnostics|Emissions|N2O",  # 34
+    "AR6 climate diagnostics|Emissions|NF3",
+    "AR6 climate diagnostics|Emissions|NH3",  # 36
+    "AR6 climate diagnostics|Emissions|NOx",  # 37
+    "AR6 climate diagnostics|Emissions|NOx|Aviation",
+    "AR6 climate diagnostics|Emissions|OC",  # 39
+    "AR6 climate diagnostics|Emissions|PFC|C2F6",
+    "AR6 climate diagnostics|Emissions|PFC|C3F8",
+    "AR6 climate diagnostics|Emissions|PFC|C4F10",
+    "AR6 climate diagnostics|Emissions|PFC|C5F12",
+    "AR6 climate diagnostics|Emissions|PFC|C6F14",
+    "AR6 climate diagnostics|Emissions|PFC|C7F16",
+    "AR6 climate diagnostics|Emissions|PFC|C8F18",
+    "AR6 climate diagnostics|Emissions|PFC|CF4",
+    "AR6 climate diagnostics|Emissions|PFC|cC4F8",
+    "AR6 climate diagnostics|Emissions|SF6",
+    "AR6 climate diagnostics|Emissions|SO2F2",
+    "AR6 climate diagnostics|Emissions|Sulfur",  # 51
+    "AR6 climate diagnostics|Emissions|VOC",  # 52
 ]
 
 units = [
@@ -139,7 +139,7 @@ units = [
     "kt SF6/yr",
     "kt SO2F2/yr",
     "Mt SO2/yr",
-    "Mt VOC/yr"
+    "Mt VOC/yr",
 ]
 
 for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
@@ -170,11 +170,15 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     fossil_fraction = np.zeros((201, 53))
     fossil_fraction[0, :] = 1 - afolu_fraction[0, :]
     for ispec in range(53):
-        fossil_fraction[:151, ispec] = np.linspace(1, 0, 151) * fossil_fraction[0, ispec]
+        fossil_fraction[:151, ispec] = (
+            np.linspace(1, 0, 151) * fossil_fraction[0, ispec]
+        )
     fossil_fraction[:, 14] = 0
 
     # add up fractions and multiply by 2100 emissions
-    emissions_2100_2300_out = emissions_2100_2300_out[0, :] * (afolu_fraction + fossil_fraction)
+    emissions_2100_2300_out = emissions_2100_2300_out[0, :] * (
+        afolu_fraction + fossil_fraction
+    )
 
     # replace CO2 FFI, CH4 and N2O with RFF, where CO2 FFI is total minus assumed AFOLU
     df_in = pd.read_csv(DATARFF.joinpath("emissions%05d.csv" % scenario), index_col=0)
@@ -183,21 +187,29 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     n2o = df_in.loc[2100:2300, "N2O"]
     emissions_2100_2300_out[:, 11] = ch4.values
     emissions_2100_2300_out[:, 34] = n2o.values
-    emissions_2100_2300_out[:, 15] = co2.values*1000 - emissions_2100_2300_out[:, 14]
+    emissions_2100_2300_out[:, 15] = co2.values * 1000 - emissions_2100_2300_out[:, 14]
 
     # concatenate and make dataframe
-    emissions_2015_2300_out = np.concatenate((df_this.timeseries().values, emissions_2100_2300_out[1:, :].T), axis=1)
+    emissions_2015_2300_out = np.concatenate(
+        (df_this.timeseries().values, emissions_2100_2300_out[1:, :].T), axis=1
+    )
 
     index_arrays = [
         ["RFF-SP"] * 53,
         [str(scenario)] * 53,
         ["World"] * 53,
         variables,
-        units
+        units,
     ]
     index_tuples = list(zip(*index_arrays))
-    index = pd.MultiIndex.from_tuples(index_tuples, names=["model", "scenario", "region", "variable", "unit"])
-    emissions_2015_2300_df = pd.DataFrame(emissions_2015_2300_out, columns=np.arange(2015, 2301), index=index)
+    index = pd.MultiIndex.from_tuples(
+        index_tuples, names=["model", "scenario", "region", "variable", "unit"]
+    )
+    emissions_2015_2300_df = pd.DataFrame(
+        emissions_2015_2300_out, columns=np.arange(2015, 2301), index=index
+    )
 
     # Write CSV
-    emissions_2015_2300_df.to_csv(DATAOUT.joinpath("emissions{:05d}.csv".format(scenario)))
+    emissions_2015_2300_df.to_csv(
+        DATAOUT.joinpath("emissions{:05d}.csv".format(scenario))
+    )

@@ -39,7 +39,16 @@ variables = [
     "Emissions|VOC",
 ]
 
-scenarios = ["ssp119", "ssp126", "ssp245", "ssp370", "ssp434", "ssp460", "ssp534-over", "ssp585"]
+scenarios = [
+    "ssp119",
+    "ssp126",
+    "ssp245",
+    "ssp370",
+    "ssp434",
+    "ssp460",
+    "ssp534-over",
+    "ssp585",
+]
 
 df = df.filter(region="World", variable=variables, scenario=scenarios, year=2100)
 
@@ -47,11 +56,11 @@ afolu = variables[0::2]
 total = variables[1::2]
 
 df_out = []
-for ivar in range(len(variables)//2):
+for ivar in range(len(variables) // 2):
     frac_name = f"Fraction|{total[ivar].split('|')[-1]}"
-    if frac_name=="Fraction|CO2":
+    if frac_name == "Fraction|CO2":
         continue
-    df_out.append(df.divide(afolu[ivar], total[ivar], frac_name, ignore_units='1'))
+    df_out.append(df.divide(afolu[ivar], total[ivar], frac_name, ignore_units="1"))
 
 df_out = pyam.concat(df_out)
 

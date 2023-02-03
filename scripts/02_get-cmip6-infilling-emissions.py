@@ -52,7 +52,8 @@ with zipfile.ZipFile(RFF_ZIPFILE_TARGET, mode="r") as z:
 print("Moving to a handy location...")
 shutil.move(
     DATAOUT.joinpath(
-        "iiasa-climate-assessment-f108552/src/climate_assessment/infilling/cmip6-ssps-workflow-emissions.csv"
+        "iiasa-climate-assessment-f108552/src/climate_assessment/infilling/"
+        "cmip6-ssps-workflow-emissions.csv"
     ),
     DATAOUT,
 )

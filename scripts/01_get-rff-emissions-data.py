@@ -1,9 +1,9 @@
 # Download RFF-SP emissions for CO2, CH4 and N2O
 
 import os
-from pathlib import Path
 import urllib.request
 import zipfile
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -59,7 +59,8 @@ df_n2o = pd.read_csv(DATAOUT.joinpath("emissions/rffsp_n2o_emissions.csv"))
 print("Downloading SSP emissions...")
 SSP_EMISSIONS_TARGET = DATAOUT.joinpath("rcmip-emissions-annual-means-v5-1-0.csv")
 ssp_emissions = download_url(
-    url="https://zenodo.org/record/4589756/files/rcmip-emissions-annual-means-v5-1-0.csv",
+    url="https://zenodo.org/record/4589756/files/"
+    "rcmip-emissions-annual-means-v5-1-0.csv",
     output_path=SSP_EMISSIONS_TARGET,
 )
 

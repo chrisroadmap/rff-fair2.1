@@ -87,23 +87,36 @@ df = pd.read_csv(DATAIN.joinpath("cmip6-ssps-workflow-emissions.csv"))
 infiller_database_ssp = pyam.IamDataFrame(df)
 
 print("Grafting in aviation NOx")
-scenarios = ["ssp119", "ssp126", "ssp245", "ssp370", "ssp434", "ssp460", "ssp534-over", "ssp585"]
+scenarios = [
+    "ssp119",
+    "ssp126",
+    "ssp245",
+    "ssp370",
+    "ssp434",
+    "ssp460",
+    "ssp534-over",
+    "ssp585",
+]
 df_rcmip = pd.read_csv(DATAIN.joinpath("rcmip-emissions-annual-means-v5-1-0.csv"))
 models = {
-    'ssp119': 'IMAGE',
-    'ssp126': 'IMAGE',
-    'ssp245': 'MESSAGE-GLOBIOM',
-    'ssp370': 'AIM/CGE',
-    'ssp434': 'GCAM4',
-    'ssp460': 'GCAM4',
-    'ssp534-over': 'REMIND-MAGPIE',
-    'ssp585': 'REMIND-MAGPIE'
+    "ssp119": "IMAGE",
+    "ssp126": "IMAGE",
+    "ssp245": "MESSAGE-GLOBIOM",
+    "ssp370": "AIM/CGE",
+    "ssp434": "GCAM4",
+    "ssp460": "GCAM4",
+    "ssp534-over": "REMIND-MAGPIE",
+    "ssp585": "REMIND-MAGPIE",
 }
 for scenario in scenarios:
     df_part = df_rcmip.loc[
-        (df_rcmip["Scenario"]==scenario) &
-        (df_rcmip["Region"]=="World") &
-        (df_rcmip["Variable"]=="Emissions|NOx|MAGICC Fossil and Industrial|Aircraft"), "2015":"2100"
+        (df_rcmip["Scenario"] == scenario)
+        & (df_rcmip["Region"] == "World")
+        & (
+            df_rcmip["Variable"]
+            == "Emissions|NOx|MAGICC Fossil and Industrial|Aircraft"
+        ),
+        "2015":"2100",
     ].interpolate(axis=1)
     pyam_part = pyam.IamDataFrame(
         df_part,

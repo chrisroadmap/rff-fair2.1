@@ -4,8 +4,8 @@ def run_stuff(sample):
     import warnings
     from pathlib import Path
 
-    from pyam import concat
     from dotenv import load_dotenv
+    from pyam import concat
     from silicone.database_crunchers import QuantileRollingWindows, RMSClosest
 
     # pyam and pandas together give a LOT of junk messages
