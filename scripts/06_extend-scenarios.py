@@ -181,10 +181,11 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
     # with natural emissions go back to preindustrial in 2250.
     fossil_fraction = np.zeros((201, 53))
     fossil_fraction[0, :] = 1 - afolu_fraction[0, :]
+    emissions_1750_2100 = np.divide(natural_emissions_1750, emissions_2100_2300_out[0, :], out=np.zeros_like(natural_emissions_1750), where=emissions_2100_2300_out[0, :]!=0)
+
     for ispec in range(53):
-        emissions_1750_2100 = natural_emissions_1750[ispec]/emissions_2100_2300_out[0, ispec]
         fossil_fraction[:151, ispec] = (
-            np.linspace(1, emissions_1750_2100, 151) * fossil_fraction[0, ispec]
+            np.linspace(1, emissions_1750_2100[ispec], 151) * fossil_fraction[0, ispec]
         )
     fossil_fraction[:, 14] = 0
 
