@@ -188,7 +188,6 @@ for scenario in tqdm(range(1, RFF_SCENS + 1), desc="Making scenarios"):
             np.linspace(1, emissions_1750_2100[ispec], 151) * fossil_fraction[0, ispec]
         )
         fossil_fraction[151:, ispec] = emissions_1750_2100[ispec] * fossil_fraction[0, ispec]
-        )
     fossil_fraction[:, 14] = 0
 
     # add up fractions and multiply by 2100 emissions

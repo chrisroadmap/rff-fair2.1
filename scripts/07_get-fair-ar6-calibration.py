@@ -36,3 +36,19 @@ download_url(
     url="https://zenodo.org/record/7545157/files/calibrated_constrained_parameters.csv",
     output_path=TARGET,
 )
+
+print("Downloading volcanic forcing...")
+TARGET = DATAOUT.joinpath("volcanic_ERF_monthly_-950001-201912.csv")
+download_url(
+    url="https://raw.githubusercontent.com/chrisroadmap/fair-calibrate/v1.0/data/"
+    "forcing/volcanic_ERF_monthly_-950001-201912.csv",
+    output_path=TARGET,
+)
+
+print("Downloading solar forcing...")
+TARGET = DATAOUT.joinpath("solar_erf_timebounds.csv")
+download_url(
+    url="https://raw.githubusercontent.com/chrisroadmap/fair-calibrate/v1.0/data/"
+    "forcing/solar_erf_timebounds.csv",
+    output_path=TARGET,
+)
