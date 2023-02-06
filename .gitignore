@@ -2,11 +2,6 @@
 .DS_Store
 Thumbs.db
 
-# Big input files that can be downloaded and don't need committing
-data_input/
-data_processed/
-data_output/
-
 # You may want to ignore some large data output files too if they are reproducible
 # data_output/<insert subdir here>
 
