@@ -4,6 +4,7 @@ channels:
   - defaults
 dependencies:
   - black
+  - dask
   - flake8
   - isort
   - jupyter
