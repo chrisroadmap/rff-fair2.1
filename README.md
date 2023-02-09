@@ -1,43 +1,33 @@
 # rff-fair2.1
 
-Get the AR6 infiller database and save in your $DATADIR/data_input/ar6_emissions_vetted_infillerdatabase.csv.
+Run the RFF-SPs using FaIR v2.1 (calibrated and constrained AR6 version) including internal variability. This repository should reproduce the results.
 
-## First steps
+## Prerequisites
 
-This assumes that you are developing with `conda` and `python` 3.7, 3.8 or 3.9. These instructions should work for Windows when using Anaconda Prompt and for MacOS in Terminal (and by extension, likely will work on Linux).
+- python 3.7+
+- anaconda strongly recommended
+- 220 GB disk space: the output data consumes around 205 GB
 
-1. Edit the `environment.yml` file:
-  - Uncomment the `name` attribute.
-  - After `name`, enter the name you want for your environment. Good practice is to use the same name for the environment as for the repo.
-  - Edit the dependencies list as required.
-2. Create your environment:
+## Reproduction
 
+1. Clone this repository to your local machine: `git clone git@github.com:chrisroadmap/rff-fair2.1.git`
+2. If using `conda`, create the environment:
 ```
+cd rff-fair2.1
 conda env create -f environment.yml
 ```
-3. If you want to make nice version-control friendly notebooks, which will remove all output and data upon committing, run
+3. Activate the environment:
+```
+conda activate rff-fair2.1
+```
+4. If you want to make nice version-control friendly notebooks, which will remove all output and data upon committing, run
 ```
 nbstripout --install
 ```
-
-4. Examine .gitignore and decide where you want to put any large input or output datasets that you don't want to commit to GitHub, and fill in these paths.
-
-## Operation
-
-### Developing your package
-
-Most of the time your workflow will look like this
-
+5. Create a `.env` file in the root directory of the repository, and populate it with these two environment variables:
 ```
-conda activate your-env-name
-jupyter notebook
+DATADIR=/path/to/datafiles/   # change this to a local path where you want your output stored
+RFF_SCENS=10000               # how many RFF scenarios (full population = 10000) to run? For 
+                              # testing, use a small number as the code takes a lot of time.
 ```
-
-### Updating requirements
-
-As you build the package you will likely want to add more dependencies. Edit the `environment.yml` file and run
-```
-conda env update -f environment.yml --prune
-```
-
-Please do not overwrite the `environment.yml` file using `conda env export`, as this exports everything in your local environment including all sub-dependencies and OS-specific packages (and sometimes local paths).
+6. Run the scripts in the `scripts` directory in order.
