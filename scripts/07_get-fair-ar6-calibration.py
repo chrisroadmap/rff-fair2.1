@@ -1,4 +1,4 @@
-# Download RFF-SP emissions for CO2, CH4 and N2O
+# Download FaIR v2.1 AR6 calibration
 
 import os
 import urllib.request
