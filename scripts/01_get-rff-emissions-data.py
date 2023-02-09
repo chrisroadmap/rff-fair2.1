@@ -50,8 +50,7 @@ with zipfile.ZipFile(RFF_ZIPFILE_TARGET, mode="r") as z:
 # We also want to attach the RCMIP/CMIP6 historical emissions on to this, so while
 # we're at it, we'll download the SSP emissions from RCMIP.
 
-# I believe that RFF used SSP2-4.5 between 2015 and 2020. **TODO** ask Marcus or
-# re-read the Rennert paper
+# I believe that RFF used SSP2-4.5 between 2015 and 2020.
 df_co2 = pd.read_csv(DATAOUT.joinpath("emissions/rffsp_co2_emissions.csv"))
 df_ch4 = pd.read_csv(DATAOUT.joinpath("emissions/rffsp_ch4_emissions.csv"))
 df_n2o = pd.read_csv(DATAOUT.joinpath("emissions/rffsp_n2o_emissions.csv"))

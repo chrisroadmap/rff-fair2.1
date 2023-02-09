@@ -42,7 +42,7 @@ if __name__ == "__main__":
         config_are_kwargs=False,
     )
 
-    print("Running infilling in parallel...")
+    print("Running scenarios in parallel...")
     with ProcessPoolExecutor(WORKERS) as pool:
         _parallel_process(
             **parallel_process_kwargs,
