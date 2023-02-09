@@ -7,6 +7,7 @@ Run the RFF-SPs using FaIR v2.1 (calibrated and constrained AR6 version) includi
 - python 3.7+
 - anaconda strongly recommended
 - 220 GB disk space: the output data consumes around 205 GB
+- the AR6 emissions infilling database. Save this as `$DATADIR/data_input/ar6_emissions_vetted_infillerdatabase.csv` where `$DATADIR` is an environment variable you define (see 5. below). You have to obtain this by setting up an account with the IIASA AR6 WG3 database. Do this, then visit the Downloads page (https://data.ene.iiasa.ac.at/ar6/#/downloads), and download the file called "Infiller database for silicone: IPCC AR6 WGIII version (DOI: 10.5281/zenodo.6390768)"
 
 ## Reproduction
 
