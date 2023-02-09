@@ -415,20 +415,33 @@ def run_fair(sample):
     ch4_out = f.concentration[:, 0, :, 3].data
     n2o_out = f.concentration[:, 0, 0, 4].data
 
+    idx0 = 0 if sample==1 else 270
+    year0 = 1750 if sample==1 else 2020
+
     ds = xr.Dataset(
         {
             "temperature": (
                 ["year", "run"],
-                temp_out
+                temp_out[idx0:]
                 - np.average(temp_out[100:152, :], weights=average_51yr, axis=0),
             ),
-            "effective_radiative_forcing": (["year", "run"], erf_out),
-            "ocean_heat_content_change": (["year", "run"], ohc_out),
-            "co2_concentration": (["year", "run"], co2_out),
-            "ch4_concentration": (["year", "run"], ch4_out),
-            "n2o_concentration": (["year"], n2o_out),
+            "effective_radiative_forcing": (["year", "run"], erf_out[idx0:]),
+            "ocean_heat_content_change": (["year", "run"], ohc_out[idx0:]),
+            "co2_concentration": (["year", "run"], co2_out[idx0:]),
+            "ch4_concentration": (["year", "run"], ch4_out[idx0:]),
+            "n2o_concentration": (["year"], n2o_out[idx0:]),
         },
-        coords={"year": (np.arange(1750, 2301.5)), "run": configs},
+        coords={"year": (np.arange(year0, 2301.5)), "run": configs},
     )
-    ds.to_netcdf(DATAOUT.joinpath("run%05d.nc" % sample))
+    ds.to_netcdf(
+        DATAOUT.joinpath("run%05d.nc" % sample)
+        encoding={
+            "temperature": {"dtype": "float32"},
+            "effective_radiative_forcing": {"dtype": "float32"},
+            "ocean_heat_content_change": {"dtype": "float32"},
+            "co2_concentration": {"dtype": "float32"},
+            "ch4_concentration": {"dtype": "float32"},
+            "n2o_concentration": {"dtype": "float32"},
+        }
+    )
     ds.close()
