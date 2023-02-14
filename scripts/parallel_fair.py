@@ -415,8 +415,8 @@ def run_fair(sample):
     ch4_out = f.concentration[:, 0, :, 3].data
     n2o_out = f.concentration[:, 0, 0, 4].data
 
-    idx0 = 0 if sample==1 else 270
-    year0 = 1750 if sample==1 else 2020
+    idx0 = 0 if sample == 1 else 270
+    year0 = 1750 if sample == 1 else 2020
 
     ds = xr.Dataset(
         {
@@ -434,7 +434,7 @@ def run_fair(sample):
         coords={"year": (np.arange(year0, 2301.5)), "run": configs},
     )
     ds.to_netcdf(
-        DATAOUT.joinpath("run%05d.nc" % sample)
+        DATAOUT.joinpath("run%05d.nc" % sample),
         encoding={
             "temperature": {"dtype": "float32"},
             "effective_radiative_forcing": {"dtype": "float32"},
@@ -442,6 +442,6 @@ def run_fair(sample):
             "co2_concentration": {"dtype": "float32"},
             "ch4_concentration": {"dtype": "float32"},
             "n2o_concentration": {"dtype": "float32"},
-        }
+        },
     )
     ds.close()
