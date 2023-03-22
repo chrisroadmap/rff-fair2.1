@@ -1,5 +1,7 @@
 # Download FaIR v2.1 AR6 calibration
 
+# NOTE: we are using v1.0 of the calibration here.
+
 import os
 import urllib.request
 from pathlib import Path
@@ -30,7 +32,7 @@ DATADIR = Path(os.getenv("DATADIR"))
 DATAOUT = DATADIR.joinpath("data_input")
 os.makedirs(DATAOUT, exist_ok=True)
 
-print("Downloading calibration data...")
+print("Downloading calibration data...")  # v1.0
 TARGET = DATAOUT.joinpath("calibrated_constrained_parameters.csv")
 download_url(
     url="https://zenodo.org/record/7545157/files/calibrated_constrained_parameters.csv",
