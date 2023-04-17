@@ -26,7 +26,6 @@ RFF_SCENS = int(os.getenv("RFF_SCENS"))
 # everything under this block we only want to run once, this is why we have the
 # __main__ conditional
 if __name__ == "__main__":
-
     conf = list(range(1, RFF_SCENS + 1))
 
     parallel_process_kwargs = dict(

@@ -25,8 +25,10 @@ print("Running RCP scenarios...")
 obs_co2 = np.array([278.3, 285.5, 296.4])
 obs_years = [1750, 1850, 1900]
 
+
 def fit(x, a, b, c):
-    return a + b*np.exp(c*(x-1750))
+    return a + b * np.exp(c * (x - 1750))
+
 
 p, _ = scipy.optimize.curve_fit(fit, obs_years, obs_co2, p0=[278.3, 1.45, 0.0171])
 offset1765co2 = fit(1765, p[0], p[1], p[2]) - fit(1750, p[0], p[1], p[2])
@@ -34,8 +36,10 @@ offset1765co2 = fit(1765, p[0], p[1], p[2]) - fit(1750, p[0], p[1], p[2])
 obs_ch4 = np.array([729.2, 807.6, 925.1])
 obs_years = [1750, 1850, 1900]
 
+
 def fit(x, a, b, c):
-    return a + b*np.exp(c*(x-1750))
+    return a + b * np.exp(c * (x - 1750))
+
 
 p, _ = scipy.optimize.curve_fit(fit, obs_years, obs_ch4, p0=[278.3, 1.45, 0.0171])
 baseline1765ch4 = fit(1765, p[0], p[1], p[2])
@@ -43,8 +47,10 @@ baseline1765ch4 = fit(1765, p[0], p[1], p[2])
 obs_n2o = np.array([270.1, 272.1, 278.9])
 obs_years = [1750, 1850, 1900]
 
+
 def fit(x, a, b, c):
-    return a + b*np.exp(c*(x-1750))
+    return a + b * np.exp(c * (x - 1750))
+
 
 p, _ = scipy.optimize.curve_fit(fit, obs_years, obs_n2o, p0=[278.3, 1.45, 0.0171])
 baseline1765n2o = fit(1765, p[0], p[1], p[2])
@@ -61,32 +67,75 @@ scenarios = [
 ]
 
 species = [
-    'CO2 FFI', 'CO2 AFOLU', 'CO2', 'CH4', 'N2O',
-    'Sulfur', 'BC', 'OC', 'NH3', 'NOx', 'VOC', 'CO',
-    'CFC-11', 'CFC-12', 'CFC-113', 'CFC-114', 'CFC-115',
-    'HCFC-22', 'HCFC-141b', 'HCFC-142b',
-    'CCl4', 'CH3Cl', 'CH3CCl3', 'CH3Br',
-    'Halon-1211', 'Halon-1202', 'Halon-1301', 'Halon-2402',
-    'CF4', 'C2F6', 'C6F14',
-    'SF6',
-    'HFC-125', 'HFC-134a', 'HFC-143a', 'HFC-227ea', 'HFC-23', 'HFC-245fa', 'HFC-32',
-    'HFC-4310mee', 'Solar', 'Volcanic', 'Aerosol-radiation interactions',
-    'Aerosol-cloud interactions', 'Ozone', 'Light absorbing particles on snow and ice',
-    'Land use', 'Stratospheric water vapour', 'Equivalent effective stratospheric chlorine',
-    'Contrails', 'NOx aviation'
+    "CO2 FFI",
+    "CO2 AFOLU",
+    "CO2",
+    "CH4",
+    "N2O",
+    "Sulfur",
+    "BC",
+    "OC",
+    "NH3",
+    "NOx",
+    "VOC",
+    "CO",
+    "CFC-11",
+    "CFC-12",
+    "CFC-113",
+    "CFC-114",
+    "CFC-115",
+    "HCFC-22",
+    "HCFC-141b",
+    "HCFC-142b",
+    "CCl4",
+    "CH3Cl",
+    "CH3CCl3",
+    "CH3Br",
+    "Halon-1211",
+    "Halon-1202",
+    "Halon-1301",
+    "Halon-2402",
+    "CF4",
+    "C2F6",
+    "C6F14",
+    "SF6",
+    "HFC-125",
+    "HFC-134a",
+    "HFC-143a",
+    "HFC-227ea",
+    "HFC-23",
+    "HFC-245fa",
+    "HFC-32",
+    "HFC-4310mee",
+    "Solar",
+    "Volcanic",
+    "Aerosol-radiation interactions",
+    "Aerosol-cloud interactions",
+    "Ozone",
+    "Light absorbing particles on snow and ice",
+    "Land use",
+    "Stratospheric water vapour",
+    "Equivalent effective stratospheric chlorine",
+    "Contrails",
+    "NOx aviation",
 ]
 
-not_emitted = ['Solar', 'Volcanic', 'Aerosol-radiation interactions',
-'Aerosol-cloud interactions', 'Ozone', 'Light absorbing particles on snow and ice',
-'Land use', 'Stratospheric water vapour', 'Equivalent effective stratospheric chlorine',
-'Contrails', 'NOx aviation']
+not_emitted = [
+    "Solar",
+    "Volcanic",
+    "Aerosol-radiation interactions",
+    "Aerosol-cloud interactions",
+    "Ozone",
+    "Light absorbing particles on snow and ice",
+    "Land use",
+    "Stratospheric water vapour",
+    "Equivalent effective stratospheric chlorine",
+    "Contrails",
+    "NOx aviation",
+]
 
-df_solar = pd.read_csv(
-    DATAIN.joinpath("solar_erf_timebounds.csv"), index_col="year"
-)
-df_volcanic = pd.read_csv(
-    DATAIN.joinpath("volcanic_ERF_monthly_-950001-201912.csv")
-)
+df_solar = pd.read_csv(DATAIN.joinpath("solar_erf_timebounds.csv"), index_col="year")
+df_volcanic = pd.read_csv(DATAIN.joinpath("volcanic_ERF_monthly_-950001-201912.csv"))
 
 # run from 1765 : drop 15 years
 solar_forcing = np.zeros(537)
@@ -129,14 +178,12 @@ for iscen, scenario in enumerate(scenarios):
         emis = (
             df_rcmip.loc[
                 (df_rcmip["Scenario"] == scenario)
-                & (
-                    df_rcmip["Variable"].str.endswith(
-                        "|" + specie_rcmip_name
-                    )
-                )
+                & (df_rcmip["Variable"].str.endswith("|" + specie_rcmip_name))
                 & (df_rcmip["Region"] == "World"),
                 "1765":"2300",
-            ].interpolate(axis=1).values.squeeze()
+            ]
+            .interpolate(axis=1)
+            .values.squeeze()
         )
 
         # throw error if data missing
@@ -155,9 +202,7 @@ for iscen, scenario in enumerate(scenarios):
             "Unit",
         ].values[0]
         emis = emis * (
-            prefix_convert[unit.split()[0]][
-                desired_emissions_units[specie].split()[0]
-            ]
+            prefix_convert[unit.split()[0]][desired_emissions_units[specie].split()[0]]
             * compound_convert[unit.split()[1].split("/")[0]][
                 desired_emissions_units[specie].split()[1].split("/")[0]
             ]
@@ -167,25 +212,24 @@ for iscen, scenario in enumerate(scenarios):
         )
 
         # fill FaIR xarray
-        fill(
-            f.emissions, emis[:, None], specie=specie, scenario=scenario
-        )
+        fill(f.emissions, emis[:, None], specie=specie, scenario=scenario)
 
     # Aviation NOx
-    f.emissions.loc[
-        dict(specie="NOx aviation", scenario=scenario)
-    ] = f.emissions.loc[
-        dict(specie="NOx", scenario=scenario)
-    ] * df_avinox.values[:536, iscen:iscen+1]
+    f.emissions.loc[dict(specie="NOx aviation", scenario=scenario)] = (
+        f.emissions.loc[dict(specie="NOx", scenario=scenario)]
+        * df_avinox.values[:536, iscen : iscen + 1]
+    )
 
     # Replace 1765-1850 in SLCFs with ramp up from Skeie et al. 2011 piControl values
-    f.emissions[:86,iscen,0,5] = np.linspace(2, f.emissions[85,iscen,0,5], 86)
-    f.emissions[:86,iscen,0,6] = np.linspace(1.2, f.emissions[85,iscen,0,6], 86)
-    f.emissions[:86,iscen,0,7] = np.linspace(10, f.emissions[85,iscen,0,7], 86)
-    f.emissions[:86,iscen,0,8] = np.linspace(4, f.emissions[85,iscen,0,8], 86)
-    f.emissions[:86,iscen,0,9] = np.linspace(46/14*2, f.emissions[85,iscen,0,9], 86)
-    f.emissions[:86,iscen,0,10] = np.linspace(10, f.emissions[85,iscen,0,10], 86)
-    f.emissions[:86,iscen,0,11] = np.linspace(174, f.emissions[85,iscen,0,11], 86)
+    f.emissions[:86, iscen, 0, 5] = np.linspace(2, f.emissions[85, iscen, 0, 5], 86)
+    f.emissions[:86, iscen, 0, 6] = np.linspace(1.2, f.emissions[85, iscen, 0, 6], 86)
+    f.emissions[:86, iscen, 0, 7] = np.linspace(10, f.emissions[85, iscen, 0, 7], 86)
+    f.emissions[:86, iscen, 0, 8] = np.linspace(4, f.emissions[85, iscen, 0, 8], 86)
+    f.emissions[:86, iscen, 0, 9] = np.linspace(
+        46 / 14 * 2, f.emissions[85, iscen, 0, 9], 86
+    )
+    f.emissions[:86, iscen, 0, 10] = np.linspace(10, f.emissions[85, iscen, 0, 10], 86)
+    f.emissions[:86, iscen, 0, 11] = np.linspace(174, f.emissions[85, iscen, 0, 11], 86)
 
 # solar and volcanic forcing
 fill(
@@ -206,12 +250,8 @@ fill(
     f.climate_configs["ocean_heat_transfer"],
     df_configs.loc[:, "kappa1":"kappa3"].values,
 )
-fill(
-    f.climate_configs["deep_ocean_efficacy"], df_configs["epsilon"].values.squeeze()
-)
-fill(
-    f.climate_configs["gamma_autocorrelation"], df_configs["gamma"].values.squeeze()
-)
+fill(f.climate_configs["deep_ocean_efficacy"], df_configs["epsilon"].values.squeeze())
+fill(f.climate_configs["gamma_autocorrelation"], df_configs["gamma"].values.squeeze())
 fill(f.climate_configs["sigma_eta"], df_configs["sigma_eta"].values.squeeze())
 fill(f.climate_configs["sigma_xi"], df_configs["sigma_xi"].values.squeeze())
 fill(f.climate_configs["seed"], df_configs["seed"])
@@ -369,18 +409,22 @@ fill(
 )
 
 # initial condition of CO2 concentration (but not baseline for forcing calculations)
-fill(f.species_configs['baseline_concentration'], offset1765co2 + df_configs.loc[configs, 'co2_concentration_1750'].values.squeeze(), specie='CO2')
+fill(
+    f.species_configs["baseline_concentration"],
+    offset1765co2 + df_configs.loc[configs, "co2_concentration_1750"].values.squeeze(),
+    specie="CO2",
+)
 
 # initial condition of other species
-fill(f.species_configs['baseline_concentration'], baseline1765ch4, specie='CH4')
-fill(f.species_configs['baseline_concentration'], baseline1765n2o, specie='N2O')
-fill(f.species_configs['baseline_emissions'], 2, specie='Sulfur')
-fill(f.species_configs['baseline_emissions'], 174, specie='CO')
-fill(f.species_configs['baseline_emissions'], 10, specie='VOC')
-fill(f.species_configs['baseline_emissions'], 4, specie='NH3')
-fill(f.species_configs['baseline_emissions'], 2*46/14, specie='NOx')
-fill(f.species_configs['baseline_emissions'], 1.2, specie='BC')
-fill(f.species_configs['baseline_emissions'], 10, specie='OC')
+fill(f.species_configs["baseline_concentration"], baseline1765ch4, specie="CH4")
+fill(f.species_configs["baseline_concentration"], baseline1765n2o, specie="N2O")
+fill(f.species_configs["baseline_emissions"], 2, specie="Sulfur")
+fill(f.species_configs["baseline_emissions"], 174, specie="CO")
+fill(f.species_configs["baseline_emissions"], 10, specie="VOC")
+fill(f.species_configs["baseline_emissions"], 4, specie="NH3")
+fill(f.species_configs["baseline_emissions"], 2 * 46 / 14, specie="NOx")
+fill(f.species_configs["baseline_emissions"], 1.2, specie="BC")
+fill(f.species_configs["baseline_emissions"], 10, specie="OC")
 
 # initial conditions
 initialise(f.concentration, f.species_configs["baseline_concentration"])
