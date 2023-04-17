@@ -10,6 +10,7 @@ dependencies:
   - jupyter
   - nbstripout
   - matplotlib
+  - netcdf4
   - numpy
   - openpyxl
   - pandas
