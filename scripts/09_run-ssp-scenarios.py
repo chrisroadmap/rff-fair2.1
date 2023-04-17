@@ -30,12 +30,8 @@ scenarios = [
     "ssp585",
 ]
 
-df_solar = pd.read_csv(
-    DATAIN.joinpath("solar_erf_timebounds.csv"), index_col="year"
-)
-df_volcanic = pd.read_csv(
-    DATAIN.joinpath("volcanic_ERF_monthly_-950001-201912.csv")
-)
+df_solar = pd.read_csv(DATAIN.joinpath("solar_erf_timebounds.csv"), index_col="year")
+df_volcanic = pd.read_csv(DATAIN.joinpath("volcanic_ERF_monthly_-950001-201912.csv"))
 
 solar_forcing = np.zeros(552)
 volcanic_forcing = np.zeros(552)
@@ -86,12 +82,8 @@ fill(
     f.climate_configs["ocean_heat_transfer"],
     df_configs.loc[:, "kappa1":"kappa3"].values,
 )
-fill(
-    f.climate_configs["deep_ocean_efficacy"], df_configs["epsilon"].values.squeeze()
-)
-fill(
-    f.climate_configs["gamma_autocorrelation"], df_configs["gamma"].values.squeeze()
-)
+fill(f.climate_configs["deep_ocean_efficacy"], df_configs["epsilon"].values.squeeze())
+fill(f.climate_configs["gamma_autocorrelation"], df_configs["gamma"].values.squeeze())
 fill(f.climate_configs["sigma_eta"], df_configs["sigma_eta"].values.squeeze())
 fill(f.climate_configs["sigma_xi"], df_configs["sigma_xi"].values.squeeze())
 fill(f.climate_configs["seed"], df_configs["seed"])
