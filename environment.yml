@@ -13,8 +13,8 @@ dependencies:
   - netcdf4
   - numpy
   - openpyxl
-  - pandas
-  - pyam>=1.7
+  - pandas=2.0.0
+  - pyam==1.7.0
   - python-dotenv
   - scipy
   - tqdm
