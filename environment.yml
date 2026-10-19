@@ -1,14 +1,14 @@
 name: rff-fair2.1
 channels:
   - conda-forge
-  - defaults
+  - nodefaults
 dependencies:
   - black
   - dask
   - flake8
   - isort
   - jupyter
-  - nbstripout
+  - jupytext
   - matplotlib
   - netcdf4
   - numpy
