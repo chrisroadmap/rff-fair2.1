@@ -2,6 +2,9 @@
 # Zip stochastic output NC files in batches of 1000:
 #   output0.zip = run00001.nc .. run01000.nc
 #   output1.zip = run01001.nc .. run02000.nc, etc.
+# Also zip the scenario output NC files:
+#   rcp.zip = rcp26.nc, rcp45.nc, rcp60.nc, rcp85.nc
+#   ssp.zip = ssp119.nc .. ssp585.nc
 set -euo pipefail
 
 # Load DATADIR from .env in the git repo root, if present
@@ -36,5 +39,21 @@ for ((b = 0; b < NFILES / BATCH; b++)); do
     echo "Creating output${b}.zip (run$(printf '%05d' $start).nc - run$(printf '%05d' $end).nc)"
     zip -q -j "${OUTDIR}/output${b}.zip" "${files[@]}"
 done
+
+zip_scenarios() {
+    local name="$1"
+    shift
+    local files=()
+    for scenario in "$@"; do
+        f="${scenario}.nc"
+        [[ -f "$f" ]] || { echo "Missing file: $f" >&2; exit 1; }
+        files+=("$f")
+    done
+    echo "Creating ${name}.zip (${#files[@]} files)"
+    zip -q -j "${OUTDIR}/${name}.zip" "${files[@]}"
+}
+
+zip_scenarios rcp rcp26 rcp45 rcp60 rcp85
+zip_scenarios ssp ssp119 ssp126 ssp245 ssp370 ssp434 ssp460 ssp534-over ssp585
 
 echo "Done."
